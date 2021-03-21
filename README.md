@@ -31,7 +31,6 @@ curl -H "Host: canary.example.com"  http://$lb_ip/
 ```
 Output будет таким:
 ```
-#Output:
 web-canary-v1-65f77cdc96-tl2qw
  normal application
 ```
@@ -41,7 +40,6 @@ curl -H "Host: canary.example.com" -H "canary:always"  http://$lb_ip/
 ```
 Output будет таким:
 ```
-#Output:
 web-canary-v2-574cf96f8d-2mbdb
  CANARY application
 ```

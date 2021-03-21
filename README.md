@@ -1,6 +1,6 @@
 # Домашняя работа
 
-Ответ на домашнее задание находится в [Kubernetes-home-work2.docx](Kubernetes-home-work2.docx)
+Ответ на домашнее задание находится в [Kubernetes-home-work2.docx](Kubernetes-home-work2.docx)   
 Ответ на домашнюю работу:
 ```
 Реализовать Canary развертывание приложения через Ingress. 

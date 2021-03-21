@@ -20,10 +20,14 @@ kubectl apply -f ingress-nginx-v1.yaml
 kubectl apply -f ingress-nginx-v2.yaml
 ```
 Проверяем:  
-(поскольку я все запускал на моем самонастроеном кластере, на основе руководства https://github.com/mmumshad/kubernetes-the-hard-way у меня отсутствует LoadBalancer, соответсвтенно на Ingress Controller я хожу по NodePort, замените `worker-2:30037` на айпи вашего LoadBalancer-а.)
+(поскольку я все запускал на моем самонастроеном кластере, на основе руководства https://github.com/mmumshad/kubernetes-the-hard-way у меня отсутствует LoadBalancer, соответсвтенно на Ingress Controller я хожу по NodePort, замените `worker-1:30037` на айпи вашего LoadBalancer-а.)
 
 ```
-curl -H "Host: canary.example.com"  http://worker-2:30037/
+export lb_ip=worker-1:30037
+```
+
+```
+curl -H "Host: canary.example.com"  http://$lb_ip/
 ```
 Output будет таким:
 ```
@@ -33,7 +37,7 @@ web-canary-v1-65f77cdc96-tl2qw
 ```
 Добавляем `canary:always` в заголовок запроса:
 ```
-curl -H "Host: canary.example.com" -H "canary:always"  http://worker-2:30037/
+curl -H "Host: canary.example.com" -H "canary:always"  http://$lb_ip/
 ```
 Output будет таким:
 ```
@@ -50,7 +54,7 @@ kubectl apply -f ingress-nginx-v2-weight.yaml
 
 Проверяем: 
 ```
-for i in {1..100}; do curl -H "Host: canary.example.com" http://worker-1:30037/; done | grep application | sort | uniq -c
+for i in {1..100}; do curl -H "Host: canary.example.com" http://$lb_ip/; done | grep application | sort | uniq -c
 ```
 На выходе получаем:
 ```

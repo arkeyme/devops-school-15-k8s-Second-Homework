@@ -1,10 +1,11 @@
-# devops-school-15-k8s-Second-Homework
+# Домашняя работа
 
-Ответ на домашнее задание находится в Kubernetes home-work2.docx
-
+Ответ на домашнее задание находится в [Kubernetes home-work2.docx](Kubernetes home-work2.docx)
 Ответ на домашнюю работу:
 ```
-Реализовать Canary развертывание приложения через Ingress. Трафик на canary deployment должен перенаправляться если в заголовке добавить "canary:always" в ином случае он должен идти на обычный deployment. Опционально можете настроить перенаправлять какой-то процент трафика на canary deployment.
+Реализовать Canary развертывание приложения через Ingress. 
+Трафик на canary deployment должен перенаправляться если в заголовке добавить "canary:always" в ином случае он должен идти на обычный deployment. 
+Опционально можете настроить перенаправлять какой-то процент трафика на canary deployment.
 ```
 
 Создаем deployment, configmap и service для двух типов приложений:
@@ -18,7 +19,8 @@ kubectl apply -f web-canary-v2.yaml
 kubectl apply -f ingress-nginx-v1.yaml
 kubectl apply -f ingress-nginx-v2.yaml
 ```
-Проверяем:
+Проверяем:  
+(поскольку я все запускал на моем самонастроеном кластере, на основе руководства https://github.com/mmumshad/kubernetes-the-hard-way у меня отсутствует LoadBalancer, соответсвтенно на Ingress Controller я хожу по NodePort, замените worker-2:30037 на айпи вашего LoadBalancer-а.)
 
 ```
 curl -H "Host: canary.example.com"  http://worker-2:30037/
@@ -39,8 +41,7 @@ Output будет таким:
 web-canary-v2-574cf96f8d-2mbdb
  CANARY application
 ```
-Таким образом, используя в заголовке запроса "canary:always" весь трафик бует перенаправляться на второе приложение
-
+Таким образом, используя в заголовке запроса "canary:always" весь трафик бует перенаправляться на второе приложение.  
 Добавим перенаправление по весуб в нашем случае это будет 10%:
 
 ```

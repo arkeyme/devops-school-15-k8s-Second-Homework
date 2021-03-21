@@ -39,7 +39,7 @@ data:
         default_type text/plain;
 
         location / {
-            return 200 '$hostname\n NORMAL application\n';
+            return 200 '$hostname\n normal application\n';
         }
     }
 kind: ConfigMap
